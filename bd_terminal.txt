@@ -1,13 +1,8 @@
-					Команды для работы с postgresql
-(sudo -i -u postgres
-psql)- команда для захода в консоль psql
-postgres@just-work:~$ createdb/dropdb reshetnev - создание/удаление производиться в пользователе а не в консоле psql
-текстовый дамп созданной бд:
-//DDL
+//ddl
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    office VARCHAR(100),
+    office VARCHAR(100), 
     archived BOOLEAN DEFAULT FALSE,
     deleted BOOLEAN DEFAULT FALSE
 );
@@ -20,31 +15,39 @@ CREATE TABLE technique_type (
 CREATE TABLE technique (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    technique_type_id INT REFERENCES technique_type(id),
+    technique_type_id INT REFERENCES technique_type(id) ON DELETE CASCADE, 
     archived BOOLEAN DEFAULT FALSE,
     deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE employee_equipment (
-
-id SERIAL PRIMARY KEY,
-    id_employees INT REFERENCES employees(id),
-    office VARCHAR(100) NOT NULL, 
-    technique_id INT REFERENCES technique(id)
-);
-
-CREATE TABLE inventory (
     id SERIAL PRIMARY KEY,
-    id_employees INT REFERENCES employees(id),  
-    number_tab VARCHAR(100) NOT NULL,          
-    number_inv VARCHAR(100) NOT NULL,           
-    employee_equipment_id INT REFERENCES employee_equipment(id), 
-    technique_type_id INT REFERENCES technique_type(id), 
-    technique_id INT REFERENCES technique(id) 
+    id_employees INT REFERENCES employees(id) ON DELETE CASCADE, 
+    technique_id INT REFERENCES technique(id) ON DELETE CASCADE  
 );
-//DML
-INSERT INTO employees (name, office, archived, deleted)
-VALUES
-	('Иванов Иван Иванович', '101', FALSE, FALSE)
-	(' Петров Петр Петрович', '102', FALSE, FALSE)
-	('Сидоров Сидр Сидорович', '103', TRUE, FALSE)
+
+CREATE VIEW inventory_view AS
+SELECT 
+    e.name AS employee_name,                
+    e.id AS employee_id,                          
+    tt.name AS technique_type,             
+    t.name AS technique_name,               
+    t.id AS technique_tab_number           
+FROM employee_equipment ee
+JOIN employees e ON ee.id_employees = e.id  
+JOIN technique t ON ee.technique_id = t.id  
+JOIN technique_type tt ON t.technique_type_id = tt.id;
+
+//dml
+INSERT INTO public.employees(name, office, archived, deleted)
+	VALUES ('Иван Иванович Иванов', '101', FALSE, FALSE);
+	
+INSERT INTO public.technique_type(name)
+	VALUES ('принтер');
+
+INSERT INTO public.technique(name, technique_type_id, archived, deleted)
+	VALUES ('samsung', 1, FALSE, FALSE);
+	
+INSERT INTO public.employee_equipment(id_employees, technique_id)
+	VALUES (1, 1);
+	
