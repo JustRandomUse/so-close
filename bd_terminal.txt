@@ -1,0 +1,50 @@
+					Команды для работы с postgresql
+(sudo -i -u postgres
+psql)- команда для захода в консоль psql
+postgres@just-work:~$ createdb/dropdb reshetnev - создание/удаление производиться в пользователе а не в консоле psql
+текстовый дамп созданной бд:
+//DDL
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    office VARCHAR(100),
+    archived BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE technique_type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE technique (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    technique_type_id INT REFERENCES technique_type(id),
+    archived BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE employee_equipment (
+
+id SERIAL PRIMARY KEY,
+    id_employees INT REFERENCES employees(id),
+    office VARCHAR(100) NOT NULL, 
+    technique_id INT REFERENCES technique(id)
+);
+
+CREATE TABLE inventory (
+    id SERIAL PRIMARY KEY,
+    id_employees INT REFERENCES employees(id),  
+    number_tab VARCHAR(100) NOT NULL,          
+    number_inv VARCHAR(100) NOT NULL,           
+    employee_equipment_id INT REFERENCES employee_equipment(id), 
+    technique_type_id INT REFERENCES technique_type(id), 
+    technique_id INT REFERENCES technique(id) 
+);
+//DML
+INSERT INTO employees (name, office, archived, deleted)
+VALUES
+	('Иванов Иван Иванович', '101', FALSE, FALSE)
+	(' Петров Петр Петрович', '102', FALSE, FALSE)
+	('Сидоров Сидр Сидорович', '103', TRUE, FALSE)
