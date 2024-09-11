@@ -1,0 +1,25 @@
+//////////Типы Техники//////////
+###
+GET http://localhost:8080/technique_types
+
+###
+GET http://localhost:8080/technique_types/4
+
+###
+POST http://localhost:8080/technique_types
+Content-Type: application/json
+
+{
+    "name": "Мышь"
+}
+
+###
+PUT http://localhost:8080/technique_types/6
+Content-Type: application/json
+
+{
+    "name": "Apple наушники"
+}
+
+###
+DELETE http://localhost:8080/technique_types/7

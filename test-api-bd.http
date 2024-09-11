@@ -1,0 +1,86 @@
+//////////Сотруднки//////////
+###
+GET http://localhost:8080/employees/1
+
+###
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+PUT http://localhost:8080/employees/2
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+DELETE http://localhost:8080/employees/1
+
+//////////Техника//////////
+###
+GET http://localhost:8080/technique/1
+
+###
+POST http://localhost:8080/technique
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+PUT http://localhost:8080/technique/2
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+DELETE http://localhost:8080/technique/1
+
+//////////Техника Сотрудников//////////
+###
+GET http://localhost:8080/employee_equipment/1
+
+###
+POST http://localhost:8080/employee_equipment
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+PUT http://localhost:8080/employee_equipment/2
+Content-Type: application/json
+
+{
+    "name": "Григорий Григорьевич Григорьев",
+    "office": "104",
+    "archived": false,
+    "deleted": false
+}
+
+###
+DELETE http://localhost:8080/employee_equipment/1

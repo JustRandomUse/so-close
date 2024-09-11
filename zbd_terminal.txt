@@ -2,7 +2,7 @@
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    office VARCHAR(100), 
+    office INT, 
     archived BOOLEAN DEFAULT FALSE,
     deleted BOOLEAN DEFAULT FALSE
 );
@@ -12,7 +12,7 @@ CREATE TABLE technique_type (
     name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE technique (
+CREATE TABLE techniques (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     technique_type_id INT REFERENCES technique_type(id) ON DELETE CASCADE, 
@@ -20,9 +20,9 @@ CREATE TABLE technique (
     deleted BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE employee_equipment (
+CREATE TABLE employee_equipments (
     id SERIAL PRIMARY KEY,
-    id_employees INT REFERENCES employees(id) ON DELETE CASCADE, 
+    employees_id INT REFERENCES employees(id) ON DELETE CASCADE, 
     technique_id INT REFERENCES technique(id) ON DELETE CASCADE  
 );
 
@@ -33,9 +33,9 @@ SELECT
     tt.name AS technique_type,             
     t.name AS technique_name,               
     t.id AS technique_tab_number           
-FROM employee_equipment ee
-JOIN employees e ON ee.id_employees = e.id  
-JOIN technique t ON ee.technique_id = t.id  
+FROM employee_equipments ee
+JOIN employees e ON ee.employees_id = e.id  
+JOIN techniques t ON ee.technique_id = t.id  
 JOIN technique_type tt ON t.technique_type_id = tt.id;
 
 //dml

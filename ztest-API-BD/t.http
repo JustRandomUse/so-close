@@ -1,0 +1,29 @@
+//////////Техника//////////
+###
+GET http://localhost:8080/techniques
+
+###
+GET http://localhost:8080/techniques/3
+
+###
+POST http://localhost:8080/techniques
+Content-Type: application/json
+
+{
+    "name": "Apple",
+    "type_id": 8
+}
+//"archived": false,
+// "deleted": false
+
+###
+PUT http://localhost:8080/techniques/3
+Content-Type: application/json
+
+{
+     "name": "Huawei",
+    "type_id": 4
+}
+
+###
+DELETE http://localhost:8080/techniques/11

@@ -1,0 +1,29 @@
+//////////Сотруднки//////////
+###
+GET http://localhost:8080/employees
+
+###
+GET http://localhost:8080/employees/3
+
+###
+POST http://localhost:8080/employees
+Content-Type: application/json
+
+{
+    "name": "Александр Александрович Александров",
+    "office": 104
+}
+
+//"archived": false,
+//"deleted": false
+
+###
+PUT http://localhost:8080/employees/2
+Content-Type: application/json
+
+{
+    "office": 102
+}
+
+###
+DELETE http://localhost:8080/employees/10

@@ -1,0 +1,27 @@
+//////////Техника Сотрудников//////////
+###
+GET http://localhost:8080/employee_equipments
+
+###
+GET http://localhost:8080/employee_equipments/8
+
+###
+POST http://localhost:8080/employee_equipments
+Content-Type: application/json
+
+{
+    "employees_id": 7,
+    "technique_id": 9
+}
+
+###
+PUT http://localhost:8080/employee_equipments/4
+Content-Type: application/json
+
+{
+    "employees_id": 6,
+    "technique_id": 4
+}
+
+###
+DELETE http://localhost:8080/employee_equipments/7
