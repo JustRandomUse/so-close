@@ -74,7 +74,6 @@ func GetTechniques(c *gin.Context) {
 	})
 }
 
-// Добавление нового элемента
 func CreateTechniques(c *gin.Context) {
 	var input models.Techniques
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -82,12 +81,10 @@ func CreateTechniques(c *gin.Context) {
 		return
 	}
 
-	// Создание нового элемента
 	config.DB.Create(&input)
 	c.JSON(http.StatusOK, input)
 }
 
-// Обновление элемента
 func UpdateTechniques(c *gin.Context) {
 	var item models.Techniques
 	if err := config.DB.First(&item, c.Param("id")).Error; err != nil {
@@ -101,12 +98,10 @@ func UpdateTechniques(c *gin.Context) {
 		return
 	}
 
-	// Обновление существующего элемента
 	config.DB.Model(&item).Updates(input)
 	c.JSON(http.StatusOK, item)
 }
 
-// Удаление элемента (soft delete)
 func DeleteTechniques(c *gin.Context) {
 	var Techniques models.Techniques
 	if err := config.DB.First(&Techniques, c.Param("id")).Error; err != nil {

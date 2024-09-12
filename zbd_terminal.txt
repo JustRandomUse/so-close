@@ -23,7 +23,7 @@ CREATE TABLE techniques (
 CREATE TABLE employee_equipments (
     id SERIAL PRIMARY KEY,
     employees_id INT REFERENCES employees(id) ON DELETE CASCADE, 
-    technique_id INT REFERENCES technique(id) ON DELETE CASCADE  
+    technique_id INT REFERENCES techniques(id) ON DELETE CASCADE  
 );
 
 CREATE VIEW inventory_view AS
@@ -51,3 +51,12 @@ INSERT INTO public.technique(name, technique_type_id, archived, deleted)
 INSERT INTO public.employee_equipment(id_employees, technique_id)
 	VALUES (1, 1);
 	
+
+
+
+INSERT INTO technique_types (name) VALUES ('Type1');
+INSERT INTO techniques (name, type_id) VALUES ('Technique', 3);
+INSERT INTO employees (name) VALUES ('Employees1');
+INSERT INTO employee_equipments (employees_id, technique_id) VALUES (6, 4);
+
+

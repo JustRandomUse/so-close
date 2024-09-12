@@ -11,7 +11,7 @@ Content-Type: application/json
 
 {
     "name": "Apple",
-    "type_id": 8
+    "type_id": 48
 }
 //"archived": false,
 // "deleted": false
@@ -26,4 +26,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/techniques/11
+DELETE http://localhost:8080/techniques/9
+
+###
+GET http://localhost:8080/techniques?&name=Apple&type_id=8&page=1&limit=2
+Content-Type: application/json

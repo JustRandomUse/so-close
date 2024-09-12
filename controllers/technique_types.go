@@ -56,7 +56,6 @@ func GetTechniqueType(c *gin.Context) {
 	})
 }
 
-// Добавление нового элемента
 func CreateTechniqueType(c *gin.Context) {
 	var input models.TechniqueTypes
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -68,7 +67,6 @@ func CreateTechniqueType(c *gin.Context) {
 	c.JSON(http.StatusOK, input)
 }
 
-// Обновление элемента
 func UpdateTechniqueType(c *gin.Context) {
 	var item models.TechniqueTypes
 	if err := config.DB.First(&item, c.Param("id")).Error; err != nil {
@@ -86,7 +84,6 @@ func UpdateTechniqueType(c *gin.Context) {
 	c.JSON(http.StatusOK, item)
 }
 
-// Удаление элемента
 func DeleteTechniqueType(c *gin.Context) {
 	var item models.TechniqueTypes
 	if err := config.DB.First(&item, c.Param("id")).Error; err != nil {

@@ -9,14 +9,55 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// func GetEmployeeEquipmentByID(c *gin.Context) {
+// 	var employee_equipment models.EmployeeEquipments
+// 	if err := config.DB.First(&employee_equipment, c.Param("id")).Error; err != nil {
+// 		c.JSON(http.StatusNotFound, gin.H{"error": "employee_equipment not found"})
+// 		return
+// 	}
+// 	c.JSON(http.StatusOK, employee_equipment)
+
+// }
+
+type EmployeeEquipmentWithOffice struct {
+	EmployeeName  string `json:"employee_name"`
+	EmployeeID    int    `json:"employee_id"`
+	Office        int    `json:"office"`
+	TechniqueID   int    `json:"technique_id"`
+	TechniqueName string `json:"technique_name"`
+}
+
 func GetEmployeeEquipmentByID(c *gin.Context) {
-	var employee_equipment models.EmployeeEquipments
-	if err := config.DB.First(&employee_equipment, c.Param("id")).Error; err != nil {
+	var employeeEquipment models.EmployeeEquipments
+	if err := config.DB.First(&employeeEquipment, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "employee_equipment not found"})
 		return
 	}
-	c.JSON(http.StatusOK, employee_equipment)
 
+	// Запрос данных сотрудника по employees_id
+	var employee models.Employees
+	if err := config.DB.First(&employee, employeeEquipment.EmployeesID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Employee not found"})
+		return
+	}
+
+	// Запрос данных техники по technique_id
+	var technique models.Techniques
+	if err := config.DB.First(&technique, employeeEquipment.TechniqueID).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Technique not found"})
+		return
+	}
+
+	// Формируем ответ с данными сотрудника, офиса и техники
+	response := EmployeeEquipmentWithOffice{
+		EmployeeName:  employee.Name,
+		EmployeeID:    employee.ID,
+		Office:        employee.Office,
+		TechniqueID:   technique.ID,
+		TechniqueName: technique.Name,
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
 // Получение всех элементов с пагинацией и фильтрацией
@@ -63,7 +104,6 @@ func GetEmployeeEquipments(c *gin.Context) {
 	})
 }
 
-// Добавление нового элемента
 func CreateEmployeeEquipments(c *gin.Context) {
 	var input models.EmployeeEquipments
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -71,12 +111,10 @@ func CreateEmployeeEquipments(c *gin.Context) {
 		return
 	}
 
-	// Создание нового элемента
 	config.DB.Create(&input)
 	c.JSON(http.StatusOK, input)
 }
 
-// Обновление элемента
 func UpdateEmployeeEquipments(c *gin.Context) {
 	var item models.EmployeeEquipments
 	if err := config.DB.First(&item, c.Param("id")).Error; err != nil {
@@ -90,12 +128,10 @@ func UpdateEmployeeEquipments(c *gin.Context) {
 		return
 	}
 
-	// Обновление существующего элемента
 	config.DB.Model(&item).Updates(input)
 	c.JSON(http.StatusOK, item)
 }
 
-// Удаление элемента
 func DeleteEmployeeEquipments(c *gin.Context) {
 	var item models.EmployeeEquipments
 	if err := config.DB.First(&item, c.Param("id")).Error; err != nil {
@@ -103,7 +139,6 @@ func DeleteEmployeeEquipments(c *gin.Context) {
 		return
 	}
 
-	// Удаление элемента
 	config.DB.Delete(&item)
 	c.JSON(http.StatusOK, gin.H{"message": "Item deleted!"})
 }

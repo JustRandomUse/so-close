@@ -72,7 +72,6 @@ func GetEmployees(c *gin.Context) {
 	})
 }
 
-// Добавление нового элемента
 func CreateEmployees(c *gin.Context) {
 	var input models.Employees
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -80,12 +79,10 @@ func CreateEmployees(c *gin.Context) {
 		return
 	}
 
-	// Создание нового элемента
 	config.DB.Create(&input)
 	c.JSON(http.StatusOK, input)
 }
 
-// Обновление элемента
 func UpdateEmployees(c *gin.Context) {
 	var Employees models.Employees
 	if err := config.DB.First(&Employees, c.Param("id")).Error; err != nil {
@@ -99,12 +96,10 @@ func UpdateEmployees(c *gin.Context) {
 		return
 	}
 
-	// Обновление существующего элемента
 	config.DB.Model(&Employees).Updates(input)
 	c.JSON(http.StatusOK, Employees)
 }
 
-// Удаление элемента (soft delete)
 func DeleteEmployees(c *gin.Context) {
 	var Employees models.Employees
 	if err := config.DB.First(&Employees, c.Param("id")).Error; err != nil {

@@ -3,15 +3,15 @@
 GET http://localhost:8080/employee_equipments
 
 ###
-GET http://localhost:8080/employee_equipments/8
+GET http://localhost:8080/employee_equipments/28
 
 ###
 POST http://localhost:8080/employee_equipments
 Content-Type: application/json
 
 {
-    "employees_id": 7,
-    "technique_id": 9
+    "employees_id": 3,
+    "technique_id": 10
 }
 
 ###
@@ -24,4 +24,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/employee_equipments/7
+DELETE http://localhost:8080/employee_equipments/24
+
+###
+GET http://localhost:8080/employee_equipments?&technique_id=9&employees_id&page=1&limit=2
+Content-Type: application/json

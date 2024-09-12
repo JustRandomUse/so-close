@@ -25,6 +25,9 @@ func main() {
 	// config.DB.AutoMigrate(&models.Employees{})
 	// config.DB.AutoMigrate(&models.Technique{})
 
+	r.GET("/inventory/:office", controllers.GetInventoryByOffice)
+	// r.GET("/inventory/:office", controllers.GetInventory)
+
 	r.GET("/employee_equipments", controllers.GetEmployeeEquipments)
 	r.GET("/employee_equipments/:id", controllers.GetEmployeeEquipmentByID)
 	r.POST("/employee_equipments", controllers.CreateEmployeeEquipments)
