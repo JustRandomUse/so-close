@@ -1,0 +1,18 @@
+<!-- HTML для InventoryComponent -->
+<mat-form-field>
+    <mat-label>Выберите кабинет</mat-label>
+    <mat-select [(ngModel)]="selectedCabinet">
+      <mat-option *ngFor="let cabinet of cabinets" [value]="cabinet.id">
+        {{ cabinet.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <button mat-raised-button (click)="generateReport()">Сформировать отчет</button>
+  
+  <ng-container *ngIf="report">
+    <h2>Инвентаризационный отчет для {{ selectedCabinetName }}</h2>
+    <table mat-table [dataSource]="report.items">
+      <!-- Определите столбцы для отчета -->
+    </table>
+  </ng-container>

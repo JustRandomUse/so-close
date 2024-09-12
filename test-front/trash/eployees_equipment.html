@@ -1,0 +1,28 @@
+<!-- Пример для компонента EmployeesComponent -->
+<mat-form-field>
+    <input matInput (keyup.enter)="search()" placeholder="Поиск сотрудников" [(ngModel)]="searchQuery">
+  </mat-form-field>
+  
+  <button mat-icon-button (click)="openAddDialog()">Добавить сотрудника</button>
+  
+  <table mat-table [dataSource]="employees">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Имя </th>
+      <td mat-cell *matCellDef="let employee"> {{employee.name}} </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Действия </th>
+      <td mat-cell *matCellDef="let employee">
+        <button mat-icon-button (click)="openEditDialog(employee)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="confirmDelete(employee.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
