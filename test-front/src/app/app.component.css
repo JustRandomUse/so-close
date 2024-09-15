@@ -1,0 +1,28 @@
+.tab-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: unset;
+    align-items: unset;
+    height: 100vh; 
+  }
+  
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+    
+  nav ul li:hover {
+    color: #007bff; 
+  }
+  
+ 
+  div[ngSwitch] {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
