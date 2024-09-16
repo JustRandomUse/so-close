@@ -7,7 +7,7 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<!-- <div class="tab-container">
+<div class="tab-container">
   <nav>
     <ul>
       <li (click)="selectTab('employees')">Сотрудники</li>
@@ -19,20 +19,13 @@
   </nav>
 
   <div [ngSwitch]="selectedTab">
-    <app-employees *ngSwitchCase="'employees'"></app-employees>
+    <!-- <app-employees *ngSwitchCase="'employees'"></app-employees> -->
     <app-techniques *ngSwitchCase="'techniques'"></app-techniques>
     <app-technique-types *ngSwitchCase="'technique_types'"></app-technique-types>
     <app-employee-equipment *ngSwitchCase="'employee_equipment'"></app-employee-equipment>
     <app-inventory *ngSwitchCase="'inventory'"></app-inventory>
   </div>
-</div> -->
-<nav>
-  <a routerLink="/employees">Сотрудники</a>
-  <a routerLink="/employee-equipment">Техника сотрудников</a>
-  <a routerLink="/techniques">Техника</a>
-  <a routerLink="/technique-types">Типы техники</a>
-  <a routerLink="/inventory">Инвентаризация</a>
-</nav>
+</div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->

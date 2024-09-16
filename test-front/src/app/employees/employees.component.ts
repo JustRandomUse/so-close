@@ -1,66 +1,73 @@
-// import { Component, OnInit } from '@angular/core';
-// import { EmployeesService } from './employees.service.spec'; // Импорт сервиса
+import { Component, OnInit } from '@angular/core';
+import { EmployeesService } from './employees.service.spec'; // Импорт сервиса
+import { employee } from './employees';
 
-// @Component({
-//   selector: 'app-employees',
-//   templateUrl: './employees.component.html',
-//   styleUrls: ['./employees.component.css']
-// })
-// export class EmployeesComponent implements OnInit {
-//   employees: any[] = [];
-//   paginatedEmployees: any[] = [];
-//   currentPage: number = 1;
-//   itemsPerPage: number = 5;
-//   totalItems: number = 0;
-//   searchQuery: string = '';
+@Component({
+  selector: 'app-employees',
+  standalone: true,
+  templateUrl: './employees.component.html',
+  styleUrls: ['./employees.component.css']
+})
+export class EmployeesComponent implements OnInit {
+  employees: employee = new employee;
+  submitted = false;
+  paginatedEmployees: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+  searchQuery: string = ''; 
 
-//   constructor(private employeesService: EmployeesService) {}
+  constructor(private employeesService: EmployeesService) {}
 
-//   ngOnInit() {
-//     this.loadEmployees();
-//   }
+  ngOnInit() {
+    this.loadEmployees();
+  }
 
-//   loadEmployees() {
-//     this.employeesService.getEmployees(this.currentPage, this.itemsPerPage, this.searchQuery).subscribe(response => {
-//       this.employees = response.content; // Предположим, что данные приходят в виде "content"
-//       this.totalItems = response.totalElements; // Общее количество элементов
-//     });
-//   }
+  onSearch(event: any) {
+    this.searchQuery = event.target.value;
+    this.loadEmployees();
+  }
 
-//   onSearch(event: any) {
-//     this.searchQuery = event.target.value;
-//     this.loadEmployees();
-//   }
+  loadEmployees() {
+    this.employeesService.getEmployees(this.currentPage, this.itemsPerPage, this.searchQuery).subscribe(response => {
+      this.employees = response.class; // Предположим, что данные приходят в виде "content"
+      this.totalItems = response.totalElements; // Общее количество элементов
+    });
+  }
 
-//   previousPage() {
-//     if (this.currentPage > 1) {
-//       this.currentPage--;
-//       this.loadEmployees();
-//     }
-//   }
+  addEmployee(Employees: any) {
+    this.employeesService.addEmployee(this.employees).subscribe(() => {
+      this.loadEmployees();
+    });
+    (error: any) => console.log(error);
+  }
 
-//   nextPage() {
-//     if (this.currentPage * this.itemsPerPage < this.totalItems) {
-//       this.currentPage++;
-//       this.loadEmployees();
-//     }
-//   }
+  editEmployee(employee: any) {
+    this.employeesService.updateEmployee(employee.id, employee).subscribe(() => {
+      this.loadEmployees();
+    });
+    (error: any) => console.log(error);
+  }
 
-//   addEmployee(employee: any) {
-//     this.employeesService.addEmployee(employee).subscribe(() => {
-//       this.loadEmployees();
-//     });
-//   }
+  deleteEmployee(employee: any) {
+    this.employeesService.deleteEmployee(employee.id).subscribe(() => {
+      this.loadEmployees();
+    });
+    (error: any) => console.log(error);
+  }
 
-//   deleteEmployee(employee: any) {
-//     this.employeesService.deleteEmployee(employee.id).subscribe(() => {
-//       this.loadEmployees();
-//     });
-//   }
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadEmployees();
+    }
+  }
 
-//   editEmployee(employee: any) {
-//     this.employeesService.updateEmployee(employee.id, employee).subscribe(() => {
-//       this.loadEmployees();
-//     });
-//   }
-// }
+  nextPage() {
+    if (this.currentPage * this.itemsPerPage < this.totalItems) {
+      this.currentPage++;
+      this.loadEmployees();
+    }
+  }
+
+}

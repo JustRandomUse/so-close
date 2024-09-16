@@ -7,17 +7,15 @@ import { TechniquesComponent } from './techniques/techniques.component';
 import { TechniqueTypesComponent } from './technique-types/technique-types.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { RouterOutlet } from '@angular/router';
-// import { EmployeesComponent } from './employees/employees.component'; // Убедитесь, что этот компонент является standalone
+import { EmployeesComponent } from './employees/employees.component'; // Убедитесь, что этот компонент является standalone
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule,
-    HttpClientModule,
-    RouterOutlet,
-    // EmployeesComponent,
+    AppComponent,
+    EmployeesComponent,
     EmployeeEquipmentComponent,
     TechniquesComponent,
     TechniqueTypesComponent,
